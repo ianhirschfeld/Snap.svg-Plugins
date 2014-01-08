@@ -21,9 +21,8 @@ Draws a regular hexagon.
 @param r {Number} Radius (aka Side length)
 @param a {Number} Angle of rotation in degrees
 @param roundness {Number} Roundness of vertices
-@param attrs {Object} Element attributes
-@param center {Boolean} If true, draws hexagon with center at [0,0]
+@param originCenter {Boolean} If true, draws hexagon with center at origin
 @return {Element} A Snap Element
 ###
-Paper.hex(r = 50, a = 0, roundness = 0, attrs = {}, center = false)
+Paper.hex(r = 50, a = 0, roundness = 0, originCenter = false)
 ```

@@ -73,11 +73,10 @@ Snap.plugin (Snap, Element, Paper, glob) ->
   @param r {Number} Radius (aka Side length)
   @param a {Number} Angle of rotation in degrees
   @param roundness {Number} Roundness of vertices
-  @param attrs {Object} Element attributes
-  @param center {Boolean} If true, draws hexagon with center at [0,0]
+  @param originCenter {Boolean} If true, draws hexagon with center at origin
   @return {Element} A Snap Element
   ###
-  Paper.prototype.hex = (r = 50, a = 0, roundness = 0, attrs = {}, center = false) ->
+  Paper.prototype.hex = (r = 50, a = 0, roundness = 0, originCenter = false) ->
     points = []
     radius = r - (roundness / 2)
 
@@ -89,16 +88,17 @@ Snap.plugin (Snap, Element, Paper, glob) ->
 
     # Attributes needed for rounded corners
     if roundness isnt 0
-      attrs['stroke-width'] = roundness
-      attrs['stroke-linejoin'] = 'round'
-      attrs.fill = '#000' unless attrs.fill
-      attrs.stroke = '#000' unless attrs.stroke
+      attrs =
+        'stroke-width': roundness
+        'stroke-linejoin': 'round'
+        fill: '#000'
+        stroke: '#000'
 
     # Create hexagon, apply attributes, and store roundness value on element
     hex = @polygon(points).attr(attrs).data('roundness', roundness)
 
-    # Move center off of [0,0]
-    unless center
+    # Move center off of origin
+    unless originCenter
       xOffset = Snap.Hexagon.width(hex) / 2
       yOffset = Snap.Hexagon.height(hex) / 2
       for i in [0..points.length-1]
